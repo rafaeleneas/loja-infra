@@ -1,0 +1,16 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+terraform.tfvars
+terraform.tfvars.json
+.terraformrc
+terraform.rc
+.env
+.env.local
+.DS_Store

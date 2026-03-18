@@ -1,0 +1,120 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loja-service
+  labels:
+    app: loja-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: loja-service
+  template:
+    metadata:
+      labels:
+        app: loja-service
+    spec:
+      containers:
+        - name: loja-service
+          image: loja-service:local
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: SPRING_PROFILES_ACTIVE
+            - name: KEYCLOAK_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: KEYCLOAK_URL
+            - name: LOJA_SERVICE_INTRACLIENT_TOKEN_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: LOJA_SERVICE_INTRACLIENT_TOKEN_URI
+            - name: LOJA_SERVICE_INTRACLIENT_ISSUER_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: LOJA_SERVICE_INTRACLIENT_ISSUER_URI
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
+            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
+            - name: SWAGGER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: SWAGGER_URL
+            - name: SPRINGDOC_SWAGGER_UI_OAUTH2_REDIRECT_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: SPRINGDOC_SWAGGER_UI_OAUTH2_REDIRECT_URL
+            - name: PAGAMENTO_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: PAGAMENTO_SERVICE_URL
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: DATABASE_URL
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: loja-service-secrets
+                  key: DATABASE_USERNAME
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: loja-service-secrets
+                  key: DATABASE_PASSWORD
+            - name: LOJA_SERVICE_INTRACLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: loja-service-secrets
+                  key: LOJA_SERVICE_INTRACLIENT_SECRET
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "1024Mi"
+          livenessProbe:
+            httpGet:
+              path: /api/loja/actuator/health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 5
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /api/loja/actuator/health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 5
+          startupProbe:
+            httpGet:
+              path: /api/loja/actuator/health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 30

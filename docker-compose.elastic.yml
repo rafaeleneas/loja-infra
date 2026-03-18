@@ -1,0 +1,45 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.3
+    container_name: loja-elasticsearch
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms1g -Xmx1g
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.17.3
+    container_name: loja-kibana
+    restart: unless-stopped
+    depends_on:
+      - elasticsearch
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.17.3
+    container_name: loja-filebeat
+    restart: unless-stopped
+    user: root
+    depends_on:
+      - elasticsearch
+      - kibana
+    command:
+      - filebeat
+      - -e
+      - --strict.perms=false
+    volumes:
+      - ./.docker/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./loja-service/logs:/var/log/loja:ro
+      - filebeat-data:/usr/share/filebeat/data
+
+volumes:
+  elasticsearch-data:
+  filebeat-data:
