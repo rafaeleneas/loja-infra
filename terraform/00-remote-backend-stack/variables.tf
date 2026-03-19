@@ -7,14 +7,11 @@ variable "tags" {
 }
 
 variable "assume_role" {
+  description = "Role e regiao usadas pelo provider AWS. Defina em terraform.tfvars local."
   type = object({
     arn    = string
     region = string
   })
-  default = {
-    arn    = "arn:aws:iam::950992723561:role/role_loja"
-    region = "us-east-1"
-  }
 }
 
 variable "remote_backend" {

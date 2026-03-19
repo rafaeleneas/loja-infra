@@ -1,3 +1,5 @@
+# Valores atuais voltados para execucao local/minikube.
+# TODO: mover para overlays por ambiente quando o fluxo GitOps estiver fechado.
 apiVersion: v1
 kind: ConfigMap
 metadata:
