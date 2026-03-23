@@ -1,14 +1,16 @@
 resources:
-  - ../../../base/namespace
-  - ../../../base/loja-service
-  - ../../../base/redpanda
-  - configmap.yaml
-  - secret.yaml
-  - ingress.yaml
+- ../../../base/namespace
+- ../../../base/loja-service
+- ../../../base/redpanda
+- configmap.yaml
+- secret.yaml
+- ingress.yaml
 
 namespace: loja
 
 images:
-  - name: loja-service:local
-    newName: 950992723561.dkr.ecr.us-east-1.amazonaws.com/loja-backend/hgm/backend
-    newTag: latest
+- name: loja-service:local
+  newName: 950992723561.dkr.ecr.us-east-1.amazonaws.com/loja-backend/hgm/backend
+  newTag: 15d15f07eab635826e2bb73dc3fcc1278d8e8dba
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
