@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loja-front-config
+data:
+  API_BASE_URL: http://dev-api.loja/api/loja
+  APP_URL: http://dev-loja.com/
+  KEYCLOAK_URL: http://dev-auth.loja
+  KEYCLOAK_REALM: extranet-realm
+  KEYCLOAK_CLIENT_ID: loja-frontend
+  KEYCLOAK_REDIRECT_URI: http://dev-loja.com/
+  KEYCLOAK_POST_LOGOUT_REDIRECT_URI: http://dev-loja.com/

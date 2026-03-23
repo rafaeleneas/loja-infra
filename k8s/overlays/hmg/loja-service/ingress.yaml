@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: loja-ingress
+  namespace: loja
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: hmg-api.loja.com
+      http:
+        paths:
+          - path: /api/loja
+            pathType: Prefix
+            backend:
+              service:
+                name: loja-service
+                port:
+                  number: 8080

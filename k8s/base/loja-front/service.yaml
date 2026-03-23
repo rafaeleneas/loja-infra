@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: loja-front
+  labels:
+    app: loja-front
+spec:
+  selector:
+    app: loja-front
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

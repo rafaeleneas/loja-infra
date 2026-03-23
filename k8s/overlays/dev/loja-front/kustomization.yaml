@@ -1,0 +1,12 @@
+resources:
+  - ../../../base/namespace
+  - ../../../base/loja-front
+  - configmap.yaml
+  - ingress.yaml
+
+namespace: loja
+
+images:
+  - name: loja-front:local
+    newName: loja-front
+    newTag: local

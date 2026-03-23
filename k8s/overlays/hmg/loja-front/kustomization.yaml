@@ -1,0 +1,12 @@
+resources:
+  - ../../../base/namespace
+  - ../../../base/loja-front
+  - configmap.yaml
+  - ingress.yaml
+
+namespace: loja
+
+images:
+  - name: loja-front:local
+    newName: 950992723561.dkr.ecr.us-east-1.amazonaws.com/loja-frontend/hgm/frontend
+    newTag: latest

@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loja-front
+  labels:
+    app: loja-front
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: loja-front
+  template:
+    metadata:
+      labels:
+        app: loja-front
+    spec:
+      containers:
+        - name: loja-front
+          image: loja-front:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: http
+          env:
+            - name: API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-front-config
+                  key: API_BASE_URL
+            - name: APP_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-front-config
+                  key: APP_URL
+            - name: KEYCLOAK_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-front-config
+                  key: KEYCLOAK_URL
+            - name: KEYCLOAK_REALM
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-front-config
+                  key: KEYCLOAK_REALM
+            - name: KEYCLOAK_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-front-config
+                  key: KEYCLOAK_CLIENT_ID
+            - name: KEYCLOAK_REDIRECT_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-front-config
+                  key: KEYCLOAK_REDIRECT_URI
+            - name: KEYCLOAK_POST_LOGOUT_REDIRECT_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-front-config
+                  key: KEYCLOAK_POST_LOGOUT_REDIRECT_URI
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"

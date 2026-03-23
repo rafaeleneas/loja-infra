@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loja-front-config
+data:
+  API_BASE_URL: http://hmg-api.loja.com/api/loja
+  APP_URL: http://hmg-app.loja.com/
+  KEYCLOAK_URL: http://hmg-auth.loja.com
+  KEYCLOAK_REALM: extranet-realm
+  KEYCLOAK_CLIENT_ID: loja-frontend
+  KEYCLOAK_REDIRECT_URI: http://hmg-app.loja.com/
+  KEYCLOAK_POST_LOGOUT_REDIRECT_URI: http://hmg-app.loja.com/

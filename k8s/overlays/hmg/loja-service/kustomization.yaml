@@ -1,0 +1,14 @@
+resources:
+  - ../../../base/namespace
+  - ../../../base/loja-service
+  - ../../../base/redpanda
+  - configmap.yaml
+  - secret.yaml
+  - ingress.yaml
+
+namespace: loja
+
+images:
+  - name: loja-service:local
+    newName: 950992723561.dkr.ecr.us-east-1.amazonaws.com/loja-backend/hgm/backend
+    newTag: latest

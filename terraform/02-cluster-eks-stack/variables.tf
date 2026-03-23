@@ -49,11 +49,11 @@ variable "ecr_repositories" {
   }))
 
   default = [{
-    name                 = "loja/production/frontend"
+    name                 = "loja-frontend/hgm/frontend"
     image_tag_mutability = "MUTABLE"
-  },
-  {
-    name                 = "loja/production/backend"
-    image_tag_mutability = "MUTABLE"
+    },
+    {
+      name                 = "loja-backend/hgm/backend"
+      image_tag_mutability = "MUTABLE"
   }]
 }

@@ -17,7 +17,7 @@ spec:
       containers:
         - name: loja-service
           image: loja-service:local
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
               name: http
@@ -32,26 +32,18 @@ spec:
                 configMapKeyRef:
                   name: loja-service-config
                   key: KEYCLOAK_URL
-            - name: LOJA_SERVICE_INTRACLIENT_TOKEN_URI
+            - name: KEYCLOAK_ISSUER_URI
               valueFrom:
                 configMapKeyRef:
                   name: loja-service-config
-                  key: LOJA_SERVICE_INTRACLIENT_TOKEN_URI
-            - name: LOJA_SERVICE_INTRACLIENT_ISSUER_URI
+                  key: KEYCLOAK_ISSUER_URI
+                  optional: true
+            - name: KEYCLOAK_JWK_SET_URI
               valueFrom:
                 configMapKeyRef:
                   name: loja-service-config
-                  key: LOJA_SERVICE_INTRACLIENT_ISSUER_URI
-            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-              valueFrom:
-                configMapKeyRef:
-                  name: loja-service-config
-                  key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI
-            - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
-              valueFrom:
-                configMapKeyRef:
-                  name: loja-service-config
-                  key: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI
+                  key: KEYCLOAK_JWK_SET_URI
+                  optional: true
             - name: SWAGGER_URL
               valueFrom:
                 configMapKeyRef:
@@ -67,21 +59,29 @@ spec:
                 configMapKeyRef:
                   name: loja-service-config
                   key: PAGAMENTO_SERVICE_URL
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: loja-service-config
+                  key: KAFKA_BOOTSTRAP_SERVERS
             - name: DATABASE_URL
               valueFrom:
                 configMapKeyRef:
                   name: loja-service-config
                   key: DATABASE_URL
+                  optional: true
             - name: DATABASE_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: loja-service-secrets
                   key: DATABASE_USERNAME
+                  optional: true
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: loja-service-secrets
                   key: DATABASE_PASSWORD
+                  optional: true
             - name: LOJA_SERVICE_INTRACLIENT_SECRET
               valueFrom:
                 secretKeyRef:

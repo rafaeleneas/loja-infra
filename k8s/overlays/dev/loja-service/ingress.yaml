@@ -6,7 +6,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - http:
+    - host: dev-api.loja
+      http:
         paths:
           - path: /api/loja
             pathType: Prefix

@@ -1,0 +1,48 @@
+name: Loja Front GitOps
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - loja-front-image-published
+
+env:
+  KUSTOMIZATION_PATH: k8s/overlays/hmg/loja-front
+  IMAGE_NAME_IN_MANIFEST: loja-front:local
+
+permissions:
+  contents: write
+
+jobs:
+  update-loja-front-manifest:
+    name: Update Loja Front Deployment Manifest
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout infrastructure repository
+        uses: actions/checkout@v4
+
+      - name: Set up Kustomize
+        uses: imranismail/setup-kustomize@v2
+
+      - name: Update container image in kustomization
+        env:
+          PUBLISHED_IMAGE: ${{ github.event.client_payload.image }}
+        run: |
+          if [ -z "${PUBLISHED_IMAGE}" ]; then
+            echo "::error::client_payload.image was not provided."
+            exit 1
+          fi
+
+          cd "${{ env.KUSTOMIZATION_PATH }}"
+          kustomize edit set image "${{ env.IMAGE_NAME_IN_MANIFEST }}=${PUBLISHED_IMAGE}"
+
+      - name: Commit GitOps change
+        env:
+          IMAGE_TAG: ${{ github.event.client_payload.sha }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "${{ env.KUSTOMIZATION_PATH }}/kustomization.yaml"
+          git commit -m "chore: update loja-front image to ${IMAGE_TAG}" || echo "No changes to commit"
+          git push

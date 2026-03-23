@@ -1,0 +1,11 @@
+resources:
+  - ../../../base/namespace
+  - ../../../base/keycloak
+  - configmap.yaml
+  - secret.yaml
+  - ingress.yaml
+
+patches:
+  - path: patch.deployment.yaml
+
+namespace: loja

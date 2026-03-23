@@ -9,7 +9,8 @@ resource "aws_eks_cluster" "this" {
   }
 
   vpc_config {
-    subnet_ids = data.aws_subnets.private.ids
+    subnet_ids         = data.aws_subnets.private.ids
+    security_group_ids = [aws_security_group.eks_cluster.id]
   }
 
   depends_on = [

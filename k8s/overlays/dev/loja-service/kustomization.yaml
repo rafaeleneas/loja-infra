@@ -1,0 +1,16 @@
+resources:
+  - ../../../base/namespace
+  - ../../../base/loja-service
+  - configmap.yaml
+  - secret.yaml
+  - ingress.yaml
+
+namespace: loja
+
+patches:
+  - path: patch.service.yaml
+
+images:
+  - name: loja-service:local
+    newName: loja-service
+    newTag: local
