@@ -11,6 +11,6 @@ namespace: loja
 images:
 - name: loja-service:local
   newName: 950992723561.dkr.ecr.us-east-1.amazonaws.com/loja-backend/hgm/backend
-  newTag: 15d15f07eab635826e2bb73dc3fcc1278d8e8dba
+  newTag: 08322da8d9448feb30a90bd9a6ce4aa34d5971e4
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
