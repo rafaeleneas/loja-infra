@@ -1,5 +1,6 @@
 assume_role = {
-  arn    = "arn:aws:iam::950992723561:role/role_loja"
+  
+  "arn:aws:iam::<ACCOUNT_ID>:role/<ROLE_NAME>"
   region = "us-east-1"
 }
 
