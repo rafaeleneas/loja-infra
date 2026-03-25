@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: loja-front-hmg
+  name: hmg-bootstrap
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/rafaeleneas/loja-infra.git
     targetRevision: HEAD
-    path: k8s/overlays/hmg/loja-front
+    path: argocd/hmg
   destination:
     server: https://kubernetes.default.svc
-    namespace: loja
+    namespace: argocd
   syncPolicy:
     automated:
       selfHeal: true

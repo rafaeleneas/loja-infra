@@ -1,0 +1,29 @@
+assume_role = {
+  arn    = "arn:aws:iam::950992723561:role/role_loja"
+  region = "us-east-1"
+}
+
+runtime_secrets = [
+  {
+    name        = "loja/hmg/keycloak"
+    description = "Segredos de runtime do Keycloak no ambiente hmg"
+  },
+  {
+    name        = "loja/hmg/loja-service"
+    description = "Segredos de runtime do loja-service no ambiente hmg"
+  }
+]
+
+runtime_secret_values = {
+  "loja/hmg/keycloak" = {
+    KC_DB_URL_HOST          = "REPLACE_ME"
+    KC_DB_USERNAME          = "REPLACE_ME"
+    KC_DB_PASSWORD          = "REPLACE_ME"
+    KEYCLOAK_ADMIN          = "REPLACE_ME"
+    KEYCLOAK_ADMIN_PASSWORD = "REPLACE_ME"
+  }
+
+  "loja/hmg/loja-service" = {
+    LOJA_SERVICE_INTRACLIENT_SECRET = "REPLACE_ME"
+  }
+}

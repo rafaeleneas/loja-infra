@@ -2,7 +2,7 @@ resources:
   - ../../../base/namespace
   - ../../../base/keycloak
   - configmap.yaml
-  - secret.yaml
+  - external-secret.yaml
   - ingress.yaml
 
 patches:

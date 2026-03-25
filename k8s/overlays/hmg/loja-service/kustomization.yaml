@@ -1,9 +1,8 @@
 resources:
 - ../../../base/namespace
 - ../../../base/loja-service
-- ../../../base/redpanda
 - configmap.yaml
-- secret.yaml
+- external-secret.yaml
 - ingress.yaml
 
 namespace: loja

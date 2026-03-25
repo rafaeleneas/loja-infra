@@ -10,6 +10,6 @@ data:
   SWAGGER_URL: http://dev-api.loja
   SPRINGDOC_SWAGGER_UI_OAUTH2_REDIRECT_URL: http://dev-api.loja/api/loja/swagger-ui/oauth2-redirect.html
   PAGAMENTO_SERVICE_URL: http://host.minikube.internal:8090
-  KAFKA_BOOTSTRAP_SERVERS: host.minikube.internal:19093
+  KAFKA_BOOTSTRAP_SERVERS: kafka.loja.svc.cluster.local:9092
 
   DATABASE_URL: jdbc:postgresql://host.minikube.internal:5433/lojadb?sslmode=disable
