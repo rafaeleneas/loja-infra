@@ -1,0 +1,3 @@
+Proxy local ouvindo na porta 80
+Encaminhando para a6d1e3202adb04e498f353e9c1e12c21-1102204646.us-east-1.elb.amazonaws.com
+Hosts suportados: hmg-api.loja.com, hmg-auth.loja.com

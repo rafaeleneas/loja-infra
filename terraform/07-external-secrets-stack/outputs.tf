@@ -3,7 +3,7 @@ output "external_secrets_role_arn" {
 }
 
 output "cluster_secret_store_name" {
-  value = kubernetes_manifest.cluster_secret_store.manifest.metadata.name
+  value = terraform_data.cluster_secret_store.input.cluster_secret_store
 }
 
 output "external_secrets_namespace" {

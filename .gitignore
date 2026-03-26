@@ -16,6 +16,7 @@ override.tf.json
 terraform.rc
 .env
 .env.local
+scripts/
 k8s/**/secret.yaml
 !k8s/overlays/hmg/loja-service/secret.yaml
 .DS_Store

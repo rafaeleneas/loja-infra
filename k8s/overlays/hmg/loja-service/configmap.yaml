@@ -7,7 +7,7 @@ data:
   KEYCLOAK_URL: http://hmg-auth.loja.com
   SWAGGER_URL: http://hmg-api.loja.com
   KAFKA_BOOTSTRAP_SERVERS: kafka.loja.svc.cluster.local:9092
-  KEYCLOAK_ISSUER_URI: http://keycloak.loja.svc.cluster.local:8080/realms/extranet-realm
-  KEYCLOAK_JWK_SET_URI: http://keycloak.loja.svc.cluster.local:8080/realms/extranet-realm/protocol/openid-connect/certs
+  KEYCLOAK_ISSUER_URI: http://hmg-auth.loja.com/realms/extranet-realm
+  KEYCLOAK_JWK_SET_URI: http://hmg-auth.loja.com/realms/extranet-realm/protocol/openid-connect/certs
   SPRINGDOC_SWAGGER_UI_OAUTH2_REDIRECT_URL: http://hmg-api.loja.com/api/loja/swagger-ui/oauth2-redirect.html
   PAGAMENTO_SERVICE_URL: http://pagamento-service.loja.svc.cluster.local

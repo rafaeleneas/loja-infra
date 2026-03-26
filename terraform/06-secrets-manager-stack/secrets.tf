@@ -10,10 +10,10 @@ resource "aws_secretsmanager_secret" "runtime" {
 
 resource "aws_secretsmanager_secret_version" "runtime" {
   for_each = {
-    for secret_name, secret_values in var.runtime_secret_values : secret_name => secret_values
+    for secret_name in keys(nonsensitive(var.runtime_secret_values)) : secret_name => aws_secretsmanager_secret.runtime[secret_name].id
     if contains(keys(aws_secretsmanager_secret.runtime), secret_name)
   }
 
-  secret_id     = aws_secretsmanager_secret.runtime[each.key].id
-  secret_string = jsonencode(each.value)
+  secret_id     = each.value
+  secret_string = jsonencode(var.runtime_secret_values[each.key])
 }
