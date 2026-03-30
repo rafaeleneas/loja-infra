@@ -32,12 +32,12 @@ variable "eks_remote_state" {
 variable "external_secrets" {
   description = "Configuracao do External Secrets Operator."
   type = object({
-    namespace             = string
-    chart_version         = string
-    service_account_name  = string
-    secret_name_prefix    = string
-    cluster_secret_store  = string
-    refresh_interval      = string
+    namespace            = string
+    chart_version        = string
+    service_account_name = string
+    secret_name_prefix   = string
+    cluster_secret_store = string
+    refresh_interval     = string
   })
 
   default = {

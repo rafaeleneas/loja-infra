@@ -3,10 +3,10 @@ kind: ConfigMap
 metadata:
   name: loja-front-config
 data:
-  API_BASE_URL: http://dev-api.loja/api/loja
-  APP_URL: http://dev-loja.com/
-  KEYCLOAK_URL: http://dev-auth.loja
+  API_BASE_URL: https://dev-api.lojacloud.com.br/api/loja
+  APP_URL: https://dev-app.lojacloud.com.br/
+  KEYCLOAK_URL: https://dev-auth.lojacloud.com.br
   KEYCLOAK_REALM: extranet-realm
   KEYCLOAK_CLIENT_ID: loja-frontend
-  KEYCLOAK_REDIRECT_URI: http://dev-loja.com/
-  KEYCLOAK_POST_LOGOUT_REDIRECT_URI: http://dev-loja.com/
+  KEYCLOAK_REDIRECT_URI: https://dev-app.lojacloud.com.br/
+  KEYCLOAK_POST_LOGOUT_REDIRECT_URI: https://dev-app.lojacloud.com.br/

@@ -6,3 +6,6 @@ resources:
   - ingress.yaml
 
 namespace: loja
+
+patches:
+  - path: patch.deployment.yaml

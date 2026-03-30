@@ -3,10 +3,14 @@ kind: Ingress
 metadata:
   name: loja-ingress
   namespace: loja
+  annotations:
+    # Redireciona HTTP para HTTPS no ingress de hmg.
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
+  # Em hmg, o certificado TLS fica na AWS via ACM e a terminacao HTTPS ocorre no LoadBalancer.
   ingressClassName: nginx
   rules:
-    - host: hmg-api.loja.com
+    - host: hmg-api.lojacloud.com.br
       http:
         paths:
           - path: /api/loja

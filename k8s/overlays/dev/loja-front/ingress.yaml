@@ -3,10 +3,17 @@ kind: Ingress
 metadata:
   name: loja-front-ingress
   namespace: loja
+  annotations:
+    # Redireciona HTTP para HTTPS no ingress de dev.
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - dev-app.lojacloud.com.br
+      secretName: loja-dev-tls
   rules:
-    - host: dev-loja.com
+    - host: dev-app.lojacloud.com.br
       http:
         paths:
           - path: /

@@ -7,7 +7,7 @@ output "runtime_secret_arns" {
 
 output "runtime_secret_names" {
   description = "Nomes dos segredos criados no AWS Secrets Manager."
-  value = keys(aws_secretsmanager_secret.runtime)
+  value       = keys(aws_secretsmanager_secret.runtime)
 }
 
 output "runtime_secret_versions" {

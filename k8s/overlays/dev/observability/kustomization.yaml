@@ -1,0 +1,11 @@
+resources:
+  - ../../../base/namespace
+  - ../../../base/prometheus
+  - ../../../base/grafana
+  - prometheus-configmap.yaml
+  - grafana-datasources-configmap.yaml
+  - grafana-dashboard-loja-dev-overview-configmap.yaml
+  - ingress.yaml
+  - secret.yaml
+
+namespace: loja

@@ -1,0 +1,12 @@
+assume_role = {
+  arn    = "arn:aws:iam::950992723561:role/role_loja"
+  region = "us-east-1"
+}
+
+acm_tls = {
+  primary_domain = "hmg-api.lojacloud.com.br"
+  subject_alternative_names = [
+    "hmg-app.lojacloud.com.br",
+    "hmg-auth.lojacloud.com.br"
+  ]
+}

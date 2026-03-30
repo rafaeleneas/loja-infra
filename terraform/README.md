@@ -13,11 +13,13 @@ Fluxo recomendado de subida:
 5. `08-eks-access-stack`
 6. `04-ingress-stack`
 7. capturar o hostname do LoadBalancer criado pelo ingress
-8. atualizar o `terraform.tfvars` da stack `05.2-dns-stack`
-9. `05.1-route53-zone-stack`
-10. `05.2-dns-stack`
-11. `06-secrets-manager-stack`
-12. `07-external-secrets-stack`
+8. `05.1-route53-zone-stack`
+9. `05.2-acm-tls-stack`
+10. atualizar o `terraform.tfvars` da stack `05.3-dns-stack`
+11. `05.3-dns-stack`
+12. `05.4-ingress-acm-integration-stack`
+13. `06-secrets-manager-stack`
+14. `07-external-secrets-stack`
 
 ## Blocos do projeto
 
@@ -46,7 +48,9 @@ Motivo:
 As stacks `05` a `08` completam a camada operacional:
 
 - `05.1-route53-zone-stack`: hosted zone publica
-- `05.2-dns-stack`: registros DNS da API e do Keycloak
+- `05.2-acm-tls-stack`: certificado ACM do ambiente `hmg`
+- `05.3-dns-stack`: registros DNS publicos de `hmg`
+- `05.4-ingress-acm-integration-stack`: annotations do ACM no Service do ingress-nginx para terminação TLS no LoadBalancer
 - `06-secrets-manager-stack`: segredos em AWS Secrets Manager
 - `07-external-secrets-stack`: External Secrets Operator no cluster
 - `08-eks-access-stack`: acessos administrativos ao EKS
@@ -61,7 +65,7 @@ Exemplo de comando para consultar:
 kubectl get svc -n ingress-nginx ingress-nginx-controller -o jsonpath="{.status.loadBalancer.ingress[0].hostname}"
 ```
 
-Esse valor precisa ser colocado no `terraform.tfvars` da stack `05.2-dns-stack`, nos campos:
+Esse valor precisa ser colocado no `terraform.tfvars` da stack `05.3-dns-stack`, nos campos:
 
 - `route53.api_target_hostname`
 - `route53.auth_target_hostname`
@@ -89,17 +93,31 @@ A stack `05.1-route53-zone-stack` exige:
 
 ```hcl
 route53_zone = {
-  name = "loja.com"
+  name = "lojacloud.com.br"
 }
 ```
 
-A stack `05.2-dns-stack` exige:
+A stack `05.2-acm-tls-stack` exige:
+
+```hcl
+acm_tls = {
+  primary_domain = "hmg-api.lojacloud.com.br"
+  subject_alternative_names = [
+    "hmg-app.lojacloud.com.br",
+    "hmg-auth.lojacloud.com.br"
+  ]
+}
+```
+
+A stack `05.3-dns-stack` exige:
 
 ```hcl
 route53 = {
-  api_record_name      = "hmg-api.loja.com"
+  app_record_name      = "hmg-app.lojacloud.com.br"
+  app_target_hostname  = "<hostname-do-loadbalancer>"
+  api_record_name      = "hmg-api.lojacloud.com.br"
   api_target_hostname  = "<hostname-do-loadbalancer>"
-  auth_record_name     = "hmg-auth.loja.com"
+  auth_record_name     = "hmg-auth.lojacloud.com.br"
   auth_target_hostname = "<hostname-do-loadbalancer>"
 }
 ```
@@ -108,11 +126,13 @@ As stacks `06`, `07` e `08` exigem variaveis especificas para segredos, external
 
 ## Scripts
 
+- `05.4-ingress-acm-integration-stack` usa o `certificate_arn` da stack `05.2-acm-tls-stack` e aplica annotations no `Service` `ingress-nginx-controller`, permitindo que o LoadBalancer da AWS faça a terminação TLS com ACM.
+
 Scripts disponiveis em `loja-infra/scripts/terraform`:
 
 - `up-core.ps1`: sobe stacks `00` a `03`
-- `up-addons.ps1`: sobe stacks `05.1` a `07`
-- `down-addons.ps1`: destroi stacks `07` a `05.1`
+- `up-addons.ps1`: sobe stacks `05.1`, `05.2`, `05.3`, `05.4`, `06` e `07`
+- `down-addons.ps1`: destroi stacks `07`, `06`, `05.4`, `05.3`, `05.2` e `05.1`
 - `down-core.ps1`: destroi stacks `04`, `08`, `03`, `02` e `01`
 - `get-ingress-lb-hostname.ps1`: consulta o hostname atual do LoadBalancer do ingress
 
@@ -122,8 +142,12 @@ Fluxo recomendado:
 2. aplicar `08-eks-access-stack`
 3. aplicar `04-ingress-stack`
 4. obter o hostname com `scripts/terraform/get-ingress-lb-hostname.ps1`
-5. atualizar `terraform.tfvars` de `05.2-dns-stack`
-6. rodar `scripts/terraform/up-addons.ps1`
+5. aplicar `05.1-route53-zone-stack`
+6. aplicar `05.2-acm-tls-stack`
+7. atualizar `terraform.tfvars` de `05.3-dns-stack`
+8. aplicar `05.3-dns-stack`
+9. aplicar `05.4-ingress-acm-integration-stack`
+10. rodar `scripts/terraform/up-addons.ps1`
 
 Fluxo recomendado de destroy:
 

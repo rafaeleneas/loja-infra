@@ -4,11 +4,11 @@ metadata:
   name: loja-service-config
 data:
   SPRING_PROFILES_ACTIVE: dev
-  KEYCLOAK_URL: http://dev-auth.loja
-  KEYCLOAK_ISSUER_URI: http://dev-auth.loja/realms/extranet-realm
-  KEYCLOAK_JWK_SET_URI: http://dev-auth.loja/realms/extranet-realm/protocol/openid-connect/certs
-  SWAGGER_URL: http://dev-api.loja
-  SPRINGDOC_SWAGGER_UI_OAUTH2_REDIRECT_URL: http://dev-api.loja/api/loja/swagger-ui/oauth2-redirect.html
+  KEYCLOAK_URL: https://dev-auth.lojacloud.com.br
+  KEYCLOAK_ISSUER_URI: https://dev-auth.lojacloud.com.br/realms/extranet-realm
+  KEYCLOAK_JWK_SET_URI: http://keycloak.loja.svc.cluster.local:8080/realms/extranet-realm/protocol/openid-connect/certs
+  SWAGGER_URL: https://dev-api.lojacloud.com.br
+  SPRINGDOC_SWAGGER_UI_OAUTH2_REDIRECT_URL: https://dev-api.lojacloud.com.br/api/loja/swagger-ui/oauth2-redirect.html
   PAGAMENTO_SERVICE_URL: http://host.minikube.internal:8090
   KAFKA_BOOTSTRAP_SERVERS: kafka.loja.svc.cluster.local:9092
 

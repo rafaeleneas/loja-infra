@@ -1,0 +1,4 @@
+assume_role = {
+  arn    = "arn:aws:iam::950992723561:role/role_loja"
+  region = "us-east-1"
+}

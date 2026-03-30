@@ -1,22 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: loja-front-ingress
+  name: grafana-ingress
   namespace: loja
   annotations:
-    # Redireciona HTTP para HTTPS no ingress de hmg.
+    # Redireciona HTTP para HTTPS no ingress de dev.
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  # Em hmg, o certificado TLS fica na AWS via ACM e a terminacao HTTPS ocorre no LoadBalancer.
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - grafana.dev.lojacloud.com.br
+      secretName: loja-dev-tls
   rules:
-    - host: hmg-app.lojacloud.com.br
+    - host: grafana.dev.lojacloud.com.br
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: loja-front
+                name: grafana
                 port:
-                  number: 80
+                  number: 3000

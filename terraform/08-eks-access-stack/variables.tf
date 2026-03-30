@@ -32,9 +32,9 @@ variable "eks_remote_state" {
 variable "eks_access_entries" {
   description = "Entradas administrativas do EKS para usuarios e roles do ambiente."
   type = list(object({
-    principal_arn = string
+    principal_arn     = string
     kubernetes_groups = optional(list(string), [])
-    policy_arn    = optional(string, "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy")
+    policy_arn        = optional(string, "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy")
     access_scope_type = optional(string, "cluster")
   }))
 }

@@ -29,12 +29,11 @@ variable "route53_zone_remote_state" {
   }
 }
 
-variable "route53" {
-  description = "Configuracao dos registros publicos do ambiente hmg."
+variable "acm_tls" {
+  description = "Configuracao do certificado ACM usado no ambiente hmg."
   type = object({
-    api_record_name      = string
-    api_target_hostname  = string
-    auth_record_name     = string
-    auth_target_hostname = string
+    primary_domain            = string
+    subject_alternative_names = list(string)
+    validation_method         = optional(string, "DNS")
   })
 }

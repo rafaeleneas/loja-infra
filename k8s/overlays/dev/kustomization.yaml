@@ -5,4 +5,5 @@ resources:
   - keycloak
   - loja-front
   - loja-service
+  - observability
   - redpanda

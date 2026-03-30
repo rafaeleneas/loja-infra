@@ -34,6 +34,14 @@ resource "aws_route53_record" "api" {
   records = [var.route53.api_target_hostname]
 }
 
+resource "aws_route53_record" "app" {
+  zone_id = data.terraform_remote_state.route53_zone.outputs.route53_zone_id
+  name    = var.route53.app_record_name
+  type    = "CNAME"
+  ttl     = 300
+  records = [var.route53.app_target_hostname]
+}
+
 resource "aws_route53_record" "auth" {
   zone_id = data.terraform_remote_state.route53_zone.outputs.route53_zone_id
   name    = var.route53.auth_record_name

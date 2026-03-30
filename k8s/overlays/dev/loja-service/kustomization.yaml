@@ -9,6 +9,7 @@ namespace: loja
 
 patches:
   - path: patch.service.yaml
+  - path: patch.deployment.yaml
 
 images:
   - name: loja-service:local

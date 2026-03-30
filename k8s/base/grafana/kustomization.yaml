@@ -1,0 +1,4 @@
+resources:
+  - configmap-dashboard-provider.yaml
+  - deployment.yaml
+  - service.yaml

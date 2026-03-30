@@ -6,6 +6,9 @@ resources:
 
 namespace: loja
 
+patches:
+  - path: patch.deployment.yaml
+
 images:
   - name: loja-front:local
     newName: loja-front

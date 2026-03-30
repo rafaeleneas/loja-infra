@@ -8,10 +8,9 @@ terraform {
 
   backend "s3" {
     bucket       = "loja-remote-backend-bucket"
-    key          = "networking/terraform.tfstate"
+    key          = "acm-tls/terraform.tfstate"
     region       = "us-east-1"
     use_lockfile = true
-    # dynamodb_table = "loja-state-locking-table"
   }
 }
 
