@@ -130,27 +130,24 @@ As stacks `06`, `07` e `08` exigem variaveis especificas para segredos, external
 
 Scripts disponiveis em `loja-infra/scripts/terraform`:
 
-- `up-core.ps1`: sobe stacks `00` a `03`
-- `up-addons.ps1`: sobe stacks `05.1`, `05.2`, `05.3`, `05.4`, `06` e `07`
-- `down-addons.ps1`: destroi stacks `07`, `06`, `05.4`, `05.3`, `05.2` e `05.1`
-- `down-core.ps1`: destroi stacks `04`, `08`, `03`, `02` e `01`
-- `get-ingress-lb-hostname.ps1`: consulta o hostname atual do LoadBalancer do ingress
+- `1-subir-core-00-a-03.ps1`: sobe stacks `00` a `03`
+- `2-subir-eks-access-08.ps1`: sobe stack `08`
+- `3-subir-ingress-04.ps1`: sobe stack `04`
+- `4-obter-hostname-loadbalancer-ingress.ps1`: consulta o hostname atual do LoadBalancer do ingress
+- `5-subir-addons-05.1-a-07.ps1`: sobe stacks `05.1`, `05.2`, `05.3`, `05.4`, `06` e `07`
+- `91-destruir-addons-07-a-05.1.ps1`: destroi stacks `07`, `06`, `05.4`, `05.3`, `05.2` e `05.1`
+- `92-destruir-core-04-08-03-a-01.ps1`: destroi stacks `04`, `08`, `03`, `02` e `01`
 
 Fluxo recomendado:
 
-1. rodar `scripts/terraform/up-core.ps1`
-2. aplicar `08-eks-access-stack`
-3. aplicar `04-ingress-stack`
-4. obter o hostname com `scripts/terraform/get-ingress-lb-hostname.ps1`
-5. aplicar `05.1-route53-zone-stack`
-6. aplicar `05.2-acm-tls-stack`
-7. atualizar `terraform.tfvars` de `05.3-dns-stack`
-8. aplicar `05.3-dns-stack`
-9. aplicar `05.4-ingress-acm-integration-stack`
-10. rodar `scripts/terraform/up-addons.ps1`
+1. rodar `scripts/terraform/1-subir-core-00-a-03.ps1`
+2. rodar `scripts/terraform/2-subir-eks-access-08.ps1`
+3. rodar `scripts/terraform/3-subir-ingress-04.ps1`
+4. obter o hostname com `scripts/terraform/4-obter-hostname-loadbalancer-ingress.ps1`
+5. rodar `scripts/terraform/5-subir-addons-05.1-a-07.ps1`
 
 Fluxo recomendado de destroy:
 
-1. rodar `scripts/terraform/down-addons.ps1`
-2. rodar `scripts/terraform/down-core.ps1`
+1. rodar `scripts/terraform/91-destruir-addons-07-a-05.1.ps1`
+2. rodar `scripts/terraform/92-destruir-core-04-08-03-a-01.ps1`
 3. preservar `00-remote-backend-stack`, exceto quando a intencao for remover tambem o backend remoto do Terraform

@@ -6,6 +6,10 @@ on:
     types:
       - loja-service-image-published
 
+concurrency:
+  group: gitops-loja-service-hmg
+  cancel-in-progress: false
+
 env:
   KUSTOMIZATION_PATH: k8s/overlays/hmg/loja-service
   IMAGE_NAME_IN_MANIFEST: loja-service:local
